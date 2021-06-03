@@ -50,7 +50,7 @@ const CarOwn = ({ maxSteps, activeStep, handleNext, handleData }) => {
                 <FormControl component="fieldset">
                   <FormLabel component="legend">Do you own a car?</FormLabel>
 
-                  <RadioGroup aria-label="gender" name="gender1" value={value} onChange={onChange}>
+                  <RadioGroup aria-label="hasACar" value={value} onChange={onChange}>
                     <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
                     <FormControlLabel value="No" control={<Radio />} label="No" />
                   </RadioGroup>
@@ -59,7 +59,7 @@ const CarOwn = ({ maxSteps, activeStep, handleNext, handleData }) => {
             />
 
             {errors?.hasACar && (
-              <FormHelperText id="user-name" error>
+              <FormHelperText id="hasACar" error>
                 {errors?.hasACar?.message}
               </FormHelperText>
             )}

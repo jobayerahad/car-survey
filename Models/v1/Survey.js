@@ -21,7 +21,7 @@ const SurveySchema = new Schema({
     type: String,
   },
   paymentMethod: {
-    type: String,
+    type: Object,
   },
   boughtPlace: {
     type: String,

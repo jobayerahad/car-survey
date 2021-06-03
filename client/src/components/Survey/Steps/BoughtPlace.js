@@ -1,9 +1,19 @@
 import { useForm, Controller } from "react-hook-form";
 import PropTypes from "prop-types";
 import Stepper from "../Stepper";
-import { Box, FormHelperText, Grid, TextField, Typography } from "@material-ui/core";
+import {
+  Box,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  FormLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  Typography,
+} from "@material-ui/core";
 
-const CarColor = ({ maxSteps, activeStep, handleBack, handleNext, handleData }) => {
+const BoughtPlace = ({ maxSteps, activeStep, handleBack, handleNext, handleData }) => {
   const {
     handleSubmit,
     control,
@@ -29,24 +39,25 @@ const CarColor = ({ maxSteps, activeStep, handleBack, handleNext, handleData }) 
 
           <Grid item xs={12}>
             <Controller
-              name="carColor"
+              name="boughtPlace"
               control={control}
-              defaultValue=""
-              rules={{ required: "Please tell us your name" }}
+              defaultValue="Garage"
+              rules={{ required: true }}
               render={({ field: { onChange, value } }) => (
-                <TextField
-                  id="carColor"
-                  label="What is the color of your car?"
-                  value={value}
-                  onChange={onChange}
-                  fullWidth
-                />
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Where did you buy used car?</FormLabel>
+
+                  <RadioGroup aria-label="boughtPlace" value={value} onChange={onChange}>
+                    <FormControlLabel value="Garage" control={<Radio />} label="Garage" />
+                    <FormControlLabel value="Owner" control={<Radio />} label="Owner" />
+                  </RadioGroup>
+                </FormControl>
               )}
             />
 
-            {errors?.carColor && (
-              <FormHelperText id="carColor" error>
-                {errors?.carColor?.message}
+            {errors?.boughtPlace && (
+              <FormHelperText id="boughtPlace" error>
+                {errors?.boughtPlace?.message}
               </FormHelperText>
             )}
           </Grid>
@@ -64,7 +75,7 @@ const CarColor = ({ maxSteps, activeStep, handleBack, handleNext, handleData }) 
   );
 };
 
-CarColor.propTypes = {
+BoughtPlace.propTypes = {
   maxSteps: PropTypes.number.isRequired,
   activeStep: PropTypes.number.isRequired,
   handleBack: PropTypes.func.isRequired,
@@ -72,4 +83,4 @@ CarColor.propTypes = {
   handleData: PropTypes.func.isRequired,
 };
 
-export default CarColor;
+export default BoughtPlace;

@@ -1,9 +1,19 @@
 import { useForm, Controller } from "react-hook-form";
 import PropTypes from "prop-types";
 import Stepper from "../Stepper";
-import { Box, FormHelperText, Grid, TextField, Typography } from "@material-ui/core";
+import {
+  Box,
+  FormControl,
+  FormControlLabel,
+  FormHelperText,
+  FormLabel,
+  Grid,
+  Radio,
+  RadioGroup,
+  Typography,
+} from "@material-ui/core";
 
-const CarColor = ({ maxSteps, activeStep, handleBack, handleNext, handleData }) => {
+const PublicTransport = ({ maxSteps, activeStep, handleBack, handleNext, handleData }) => {
   const {
     handleSubmit,
     control,
@@ -13,7 +23,10 @@ const CarColor = ({ maxSteps, activeStep, handleBack, handleNext, handleData }) 
   const hasErrors = Object.keys(errors).length !== 0;
 
   const onSubmit = (data) => {
-    handleData(data);
+    const updatedData = {
+      usePublicTransport: data?.usePublicTransport === "Yes" ? true : false,
+    };
+    handleData(updatedData);
     handleNext();
   };
 
@@ -29,24 +42,25 @@ const CarColor = ({ maxSteps, activeStep, handleBack, handleNext, handleData }) 
 
           <Grid item xs={12}>
             <Controller
-              name="carColor"
+              name="usePublicTransport"
               control={control}
-              defaultValue=""
-              rules={{ required: "Please tell us your name" }}
+              defaultValue="Yes"
+              rules={{ required: true }}
               render={({ field: { onChange, value } }) => (
-                <TextField
-                  id="carColor"
-                  label="What is the color of your car?"
-                  value={value}
-                  onChange={onChange}
-                  fullWidth
-                />
+                <FormControl component="fieldset">
+                  <FormLabel component="legend">Do you use public transport?</FormLabel>
+
+                  <RadioGroup aria-label="usePublicTransport" value={value} onChange={onChange}>
+                    <FormControlLabel value="Yes" control={<Radio />} label="Yes" />
+                    <FormControlLabel value="No" control={<Radio />} label="No" />
+                  </RadioGroup>
+                </FormControl>
               )}
             />
 
-            {errors?.carColor && (
-              <FormHelperText id="carColor" error>
-                {errors?.carColor?.message}
+            {errors?.usePublicTransport && (
+              <FormHelperText id="usePublicTransport" error>
+                {errors?.usePublicTransport?.message}
               </FormHelperText>
             )}
           </Grid>
@@ -64,7 +78,7 @@ const CarColor = ({ maxSteps, activeStep, handleBack, handleNext, handleData }) 
   );
 };
 
-CarColor.propTypes = {
+PublicTransport.propTypes = {
   maxSteps: PropTypes.number.isRequired,
   activeStep: PropTypes.number.isRequired,
   handleBack: PropTypes.func.isRequired,
@@ -72,4 +86,4 @@ CarColor.propTypes = {
   handleData: PropTypes.func.isRequired,
 };
 
-export default CarColor;
+export default PublicTransport;
